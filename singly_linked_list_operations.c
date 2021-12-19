@@ -14,6 +14,10 @@ void insert_at_front();
 void insert_at_end();
 void insert_after_node();
 void display();
+void delete();
+void del_from_front();
+void del_from_end();
+void del_after_node();
 
 int main()
 {
@@ -32,7 +36,7 @@ int main()
         switch(choice)  //switch case statements.
         {
             case 1: insert();break;
-            //case 2: delete();break;
+            case 2: delete();break;
             case 3: display();break;
             //case 4: search(); break;
             default: printf("\nProgram ended\n\nThankyou!"); //program ends
@@ -40,6 +44,158 @@ int main()
     }
     return 0;
 }
+
+void delete()
+{
+    int choice=0;
+    while(choice<4)
+    {
+        system("cls");
+        printf("\n--DELETION OF NODE--\n");
+        printf("\n 1-> Delete from the beginning");
+        printf("\n 2-> Delete from the end");
+        printf("\n 3-> Delete specific node");
+        printf("\n 4-> Exit");
+        printf("\nhead=%d and tail=%d",head,tail);
+        printf("\nEnter your choice : ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1: del_from_front();break;
+            case 2: del_from_end();break;
+            case 3: del_after_node(); break;
+            default: break;
+        }
+    }
+}
+
+
+void del_after_node()
+{
+    temp=head;
+    if(temp==NULL)
+    {
+        printf("\nThe List is empty");
+        printf("\nPress 'y' to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }  
+    int value;
+    printf("\nEnter the value of node to delete : ");
+    scanf("%d",&value);
+    if(head==tail)
+    {
+        if(value!=temp->data)
+        {
+            printf("\nElement not present in the List");
+            printf("\nPress 'y' to continue : ");
+            scanf(" %c",&ch);
+            return ;
+        }
+        else
+        {
+            printf("\nElement deleted is : %d",temp->data);
+            head=NULL; tail=NULL;
+            free(temp);
+            printf("\nPress 'y' to continue : ");
+            scanf(" %c",&ch);
+            return ;
+        }
+    }  
+    if(value==temp->data)
+    {
+        del_from_front();
+        return ;
+    }
+    while(temp->next->data!=value)
+    {
+        temp=temp->next;
+        if(temp==NULL)
+        {
+            printf("\nThe element is not present in the List");
+            printf("\nPress 'y' to continue : ");
+            scanf(" %c",&ch);
+            return ;
+        }
+    }
+    if(temp->next->next==NULL)
+    {
+        del_from_end();
+        return ;
+    }
+    struct node* y;
+    y=temp->next;
+    temp->next=temp->next->next;
+    printf("\nThe element deleted is : %d",y->data);
+    y->next=NULL;
+    free(y);
+    printf("\nPress 'y' to continue : ");
+    scanf(" %c",&ch);
+    
+}
+void del_from_end()
+{
+    temp=head;
+    if(temp==NULL)
+    {
+        printf("\nThe List is empty!");
+        printf("\nPress 'y' to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    if(head==tail)
+    {
+        printf("\nThe element deleted is : %d",temp->data);
+        free(temp);
+        head=NULL;
+        tail=NULL;
+        printf("\nElement deleted successfully!\n");
+        printf("\nPress 'y' to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    while(temp->next!=tail)
+    {
+        temp=temp->next;
+    }         
+    printf("\nThe element deleted is %d",tail->data);                      
+    free(tail);
+    tail=temp;
+    tail->next=NULL;
+    printf("\nElement deleted successfully!\n");
+    printf("\nPress 'y' to continue : ");
+    scanf(" %c",&ch);
+}
+void del_from_front()
+{
+    temp=head;
+    if(temp==NULL)
+    {
+        printf("\nThe List is empty!");
+        printf("\nPress 'y' to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    if(head==tail)
+    {
+        printf("\nThe element deleted is : %d",temp->data);
+        free(temp);
+        head=NULL;
+        tail=NULL;
+        printf("\nElement deleted successfully!\n");
+        printf("\nPress 'y' to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    head=head->next;
+    printf("\nThe element deleted is : %d",temp->data);
+    temp->next=NULL;
+    free(temp);
+    printf("\nElement deleted successfully!\n");
+    printf("\nPress 'y' to continue : ");
+    scanf(" %c",&ch);
+}
+
 
 void display()
 {
@@ -67,7 +223,6 @@ void display()
     printf("\nPress 'y' to continue : ");
     scanf(" %c",&ch);
 }
-
 
 void insert()
 {
