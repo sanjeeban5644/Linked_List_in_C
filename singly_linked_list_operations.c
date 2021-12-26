@@ -18,6 +18,8 @@ void delete();
 void del_from_front();
 void del_from_end();
 void del_after_node();
+void displayq(int);
+void search();
 
 int main()
 {
@@ -38,11 +40,67 @@ int main()
             case 1: insert();break;
             case 2: delete();break;
             case 3: display();break;
-            //case 4: search(); break;
+            case 4: search(); break;
             default: printf("\nProgram ended\n\nThankyou!"); //program ends
         }
     }
     return 0;
+}
+
+void search()
+{
+    int ele;
+    temp=head;
+    if(temp==NULL)
+    {
+        printf("\nThe List is empty!");
+        printf("\nPress 'y' to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    printf("\nEnter the value of the node to search : ");
+    scanf("%d",&ele);
+    while(temp!=NULL)
+    {
+        if(ele==temp->data)
+        {
+            printf("\n--Element found!--\n");
+            displayq(ele);
+            printf("\nPress 'y' to continue : ");
+            scanf(" %c",&ch);
+            return ;
+        }
+        temp=temp->next;
+    }
+    printf("\n--Element not found!--");
+    printf("\nPress 'y' to continue : ");
+    scanf(" %c",&ch);
+    return ;
+}
+
+void displayq(ele)
+{
+    temp=head;
+    while(temp!=NULL)
+    {
+        if(temp->data==ele && temp==tail)
+        {
+            printf(" *(%d)* -> NULL",temp->data);
+        }
+        else if(temp->data==ele)
+        {
+            printf(" *(%d)* -> ",temp->data);
+        }
+        else if(temp==tail)
+        {
+            printf(" %d -> NULL",temp->data);
+        }
+        else
+        {
+            printf(" %d ->",temp->data);
+        }
+        temp=temp->next;
+    }
 }
 
 void delete()
@@ -68,7 +126,6 @@ void delete()
         }
     }
 }
-
 
 void del_after_node()
 {
@@ -196,7 +253,6 @@ void del_from_front()
     scanf(" %c",&ch);
 }
 
-
 void display()
 {
     temp=head;
@@ -216,7 +272,7 @@ void display()
         }
         else
         {
-            printf(" %d.",temp->data);
+            printf(" %d -> NULL.",temp->data);
         }
         temp=temp->next;
     }
