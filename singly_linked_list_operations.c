@@ -21,6 +21,8 @@ void del_after_node();
 void displayq(int);
 void search();
 void count();
+void reverse();
+
 
 int main()
 {
@@ -34,7 +36,7 @@ int main()
         printf("\n 3-> Display");
         printf("\n 4-> Search a node");
         printf("\n 5-> Count the no.of nodes");
-        //printf("\n 6-> Reverse the Linked List");
+        printf("\n 6-> Reverse the Linked List");
         //printf("\n 7-> Middle Element");
         //printf("\n 8-> Sort the Linked List");
         //printf("\n 9-> Remove Duplicates from Sorted List");
@@ -50,7 +52,7 @@ int main()
             case 3: display();break;
             case 4: search(); break;
             case 5: count(); break;
-            //case 6: reverse(); break;
+            case 6: reverse(); break;
             //case 7: middle(); break;
             //case 8: sort(); break;
             //case 9: rem_dup(); break;
@@ -60,6 +62,34 @@ int main()
         }
     }
     return 0;
+}
+
+void reverse()
+{
+    if(head==NULL)
+    {
+        printf("\nThe List is empty!\n");
+        printf("\nPress 'y' to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    struct node *prev_node,*curr_node,*next_node;
+    prev_node=NULL;
+    curr_node=next_node=head;
+    while(next_node!=NULL)
+    {
+        next_node=next_node->next;
+        curr_node->next=prev_node;
+        prev_node=curr_node;
+        curr_node=next_node;
+    }
+    temp=head;
+    head=tail;
+    tail=temp;
+    printf("\nThe Linked List is successfully reversed!\n");
+    printf("\nPress 'y' to continue : ");
+    scanf(" %c",&ch);
+    return ;
 }
 
 void count()
