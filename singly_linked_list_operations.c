@@ -20,11 +20,12 @@ void del_from_end();
 void del_after_node();
 void displayq(int);
 void search();
+void count();
 
 int main()
 {
     int choice=0;
-    while(choice<5)
+    while(choice<12)
     {
         system("cls");
         printf("\n--SINGLY LINKED LIST OPERATIONS--\n");
@@ -32,14 +33,14 @@ int main()
         printf("\n 2-> Delete node");
         printf("\n 3-> Display");
         printf("\n 4-> Search a node");
-        //printf("\n 5-> Count the no.of nodes");
+        printf("\n 5-> Count the no.of nodes");
         //printf("\n 6-> Reverse the Linked List");
         //printf("\n 7-> Middle Element");
         //printf("\n 8-> Sort the Linked List");
         //printf("\n 9-> Remove Duplicates from Sorted List");
         //printf("\n 10-> Check if List is palindrome");
         //printf("\n 11-> Remove Nth node from end");
-        printf("\n 5-> Exit");
+        printf("\n 12-> Exit");
         printf("\n\nEnter your choice : ");
         scanf("%d",&choice);
         switch(choice)  //switch case statements.
@@ -48,17 +49,39 @@ int main()
             case 2: delete();break;
             case 3: display();break;
             case 4: search(); break;
-            //case 5: count(); break;
+            case 5: count(); break;
             //case 6: reverse(); break;
             //case 7: middle(); break;
             //case 8: sort(); break;
-            //case 9: remdup(); break;
+            //case 9: rem_dup(); break;
             //case 10: palin(); break;
             //case 11: remnth(); break;
             default: printf("\nProgram ended\n\nThankyou!"); //program ends
         }
     }
     return 0;
+}
+
+void count()
+{
+    int num=0;
+    temp=head;
+    if(temp==NULL)
+    {
+        printf("\nThe List is empty!");
+        printf("\nPress 'y' to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    while(temp!=NULL)
+    {
+        num++;
+        temp=temp->next;
+    }
+    printf("\nThe total no.of nodes in the List is : %d",num);
+    printf("\nPress 'y' to continue : ");
+    scanf(" %c",&ch);
+    return; 
 }
 
 void search()
