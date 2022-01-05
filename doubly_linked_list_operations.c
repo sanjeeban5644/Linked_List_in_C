@@ -19,11 +19,13 @@ void delfromfirst();
 void delfromend();
 void delnode();
 void reverse();
+int count();
+void check_palin();
 
 int main()
 {
-    int choice=0;
-    while(choice<5)
+    int choice=0,total_nodes;
+    while(choice<7)
     {
         system("cls");
         printf("\n--Doubly Linked List Implementation--");
@@ -31,7 +33,9 @@ int main()
         printf("\n2-> Delete a node");
         printf("\n3-> Display the List");
         printf("\n4-> Reverse the List");
-        printf("\n5-> Exit");
+        printf("\n5-> Count total nodes");
+        printf("\n6-> Check if List is Palindrome");
+        printf("\n7-> Exit");
         printf("\n\nEnter your choice : ");
         scanf("%d",&choice);
         switch(choice)
@@ -40,10 +44,69 @@ int main()
             case 2: delete(); break;
             case 3: display(); break;
             case 4: reverse(); break;
+            case 5:
+            {
+                total_nodes = count(); 
+                printf("\nThe Total Nodes in the List is : %d\n",total_nodes)  ;
+                printf("\nPress 'y' to continue : ");
+                scanf(" %c",&ch);
+                break;
+            }
+            case 6: check_palin(); break;
             default: printf("\nProgram Ended!");printf("\nThankyou!"); break;
         }
     }
     return 0;
+}
+
+void check_palin()
+{
+    if(head==NULL)
+    {
+        printf("\nThe List is empty!");
+        printf("\nPress 'y' to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    int i,num,flag=1,n;
+    struct node *temp1,*temp2;
+    temp1=head;
+    temp2=tail;
+    num=count();
+    n=num/2;
+    for(i=1;i<=n;i++)
+    {
+        if(temp1->data!=temp2->data)
+        {
+            flag=0;
+            break;
+        }
+        temp1=temp1->next;
+        temp2=temp2->prev;
+    }
+    if(flag==1)
+    {
+        printf("\nThe List is Palindromic\n");
+    }
+    else
+    {
+        printf("\nThe List is not Palindromic\n");
+    }
+        printf("\nPress 'y' to continue : ");
+        scanf(" %c",&ch);
+        return ;
+}
+
+int count()
+{
+    int num=0;
+    temp=head;
+    while(temp!=NULL)
+    {
+        num++;
+        temp=temp->next;
+    }
+    return num;
 }
 
 void reverse()
