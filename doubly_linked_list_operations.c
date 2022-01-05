@@ -18,29 +18,64 @@ void delete();
 void delfromfirst();
 void delfromend();
 void delnode();
+void reverse();
 
 int main()
 {
     int choice=0;
-    while(choice<4)
+    while(choice<5)
     {
         system("cls");
         printf("\n--Doubly Linked List Implementation--");
         printf("\n1-> Insert a node");
         printf("\n2-> Delete a node");
         printf("\n3-> Display the List");
-        printf("\n4-> Exit");
+        printf("\n4-> Reverse the List");
+        printf("\n5-> Exit");
         printf("\n\nEnter your choice : ");
         scanf("%d",&choice);
         switch(choice)
         {
-            case 1: insert();break;
-            case 2: delete();break;
-            case 3: display();break;
+            case 1: insert(); break;
+            case 2: delete(); break;
+            case 3: display(); break;
+            case 4: reverse(); break;
             default: printf("\nProgram Ended!");printf("\nThankyou!"); break;
         }
     }
     return 0;
+}
+
+void reverse()
+{
+    if(head==NULL)
+    {
+        printf("\nList is empty!");
+        printf("\nPress 'y' to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    printf("\nReversing the Linked List\n");
+    struct node *currnode,*nextnode,*prevnode;
+    prevnode=NULL;
+    nextnode=head;
+    currnode=head;
+    while(nextnode!=NULL)
+    {
+        nextnode=nextnode->next;
+        currnode->next=prevnode;
+        currnode->prev=nextnode;
+        prevnode=currnode;
+        currnode=nextnode;
+    }
+    struct node *temp;
+    temp=head;
+    head=tail;
+    tail=temp;
+    printf("\nLinked List reversed successfully!");
+    printf("\nPress 'y' to continue : ");
+    scanf(" %c",&ch);
+    return ;
 }
 
 void delete()
