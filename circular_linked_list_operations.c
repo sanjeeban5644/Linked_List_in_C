@@ -54,11 +54,6 @@ int main()
     return 0;
 }
 
-void reverse()
-{
-    
-}
-
 void delete()
 {
     int choice=0;
