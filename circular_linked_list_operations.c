@@ -16,6 +16,10 @@ void check_palin();
 void insertatfirst();
 void insertatend();
 void insertafternode();
+void delnode();
+void delfromend();
+void delfromfront();
+
 
 char ch;
 
@@ -39,7 +43,7 @@ int main()
         switch(choice)
         {
             case 1: insert(); break;
-            //case 2: delete(); break;
+            case 2: delete(); break;
             case 3: display(); break;
             //case 4: reverse(); break;
             //case 5: count(); break;
@@ -50,34 +54,158 @@ int main()
     return 0;
 }
 
+void delete()
+{
+    int choice=0;
+    while(choice<4)
+    {
+        system("cls");
+        printf("\n--Deletion Operations--\n");
+        printf("\n1-> Delete from Beginning");
+        printf("\n2-> Delete from End");
+        printf("\n3-> Delete particular node");
+        printf("\n4-> Exit to Main Menu");
+        printf("\nEnter your choice : ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1: delfromfront(); break;
+            case 2: delfromend(); break;
+            case 3: delnode(); break;
+            default: return ;
+        }
+    }
+    return ;
+}
+
+void delnode()
+{
+    temp=head;
+    if(temp==NULL)
+    {
+        printf("\nThe List is Empty!\n");
+        printf("\nPress any key to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    int nodevalue;
+    printf("\nEnter the value of node to delete : ");
+    scanf("%d",&nodevalue);
+    if(nodevalue==head->data)
+    {
+        delfromfront();
+        return ;
+    }
+    if(nodevalue==tail->data)
+    {
+        delfromend();
+        return ;
+    }
+    int flag=0;
+    while(1)
+    {
+        if(temp->next->data==nodevalue)
+        {
+            flag=1;
+            break;
+        }
+        if(temp->next==head)
+        {
+            break;
+        }
+        temp=temp->next;
+    }
+    if(flag==0)
+    {
+        printf("\nThe node is not present in the List\n");
+        printf("\nPress any key to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    else
+    {
+        printf("\nElement to be deleted is : %d",temp->next->data);
+        struct node *temp2;
+        temp2=temp->next;
+        temp->next=temp2->next;
+        temp2->next=NULL;
+        free(temp2);
+        printf("\nElement deleted successfully!");
+    }
+    printf("\nPress any key to continue : ");
+    scanf(" %c",&ch);
+    return ;
+}
+void delfromend()
+{
+    temp=head;
+    if(temp==NULL)
+    {
+        printf("\nThe List is Empty!\n");
+        printf("\nPress any key to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    printf("\nDeleting the Last Node");
+    while(temp->next!=tail)
+    {
+        temp=temp->next;
+    }
+    tail->next=NULL;
+    printf("\nNode deleted is : %d\n",tail->data);
+    free(tail);
+    temp->next=head;
+    tail=temp;
+    printf("\nPress any key to continue : ");
+    scanf(" %c",&ch);
+    return ;
+}
+void delfromfront()
+{
+    temp=head;
+    if(temp==NULL)
+    {
+        printf("\nThe List is Empty!\n");
+        printf("\nPress any key to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    printf("\nDeleting the front node\n");
+    head=head->next;
+    tail->next=head;
+    temp->next=NULL;
+    printf("\nNode deleted is : %d\n",temp->data);
+    free(temp);
+    printf("\nPress any key to continue : ");
+    scanf(" %c",&ch);
+    return ;
+}
+
 void display()
 {
     temp=head;
     if(temp==NULL)
     {
-        printf("\nThe List is Empty!");
+        printf("\nThe List is Empty!\n");
         printf("\nPress any key to continue : ");
         scanf(" %c",&ch);
         return ;
     }
     printf("\nDisplaying the Linked List\n");
-    while(temp->next!=head->next)
+    while(1)
     {
-        if(temp==tail)
+        if(temp->next==head)
         {
-            printf("%d->",temp->data);
-        }
-        else if(temp==head)
-        {
-            printf("->%d",temp->data);
+            printf("%d->HEAD",temp->data);
+            break;
         }
         else
         {
-            printf("-%d->",temp->data);
+            printf("%d->",temp->data);
         }
         temp=temp->next;
     }
-    printf("\nPress any key to continue : ");
+    printf("\n\nPress any key to continue : ");
     scanf(" %c",&ch);
     return ;
 }
@@ -117,6 +245,11 @@ void insertafternode()
     int nodevalue,flag=0;
     printf("\nEnter the value of the node after which to enter the newnode : ");
     scanf("%d",&nodevalue);
+    if(nodevalue==tail->data)
+    {
+        insertatend();
+        return ;
+    }
     while(temp->next!=head)
     {
         if(temp->data==nodevalue)
@@ -125,11 +258,6 @@ void insertafternode()
             break;
         }
         temp=temp->next;
-    }
-    if(temp==tail)
-    {
-        insertatend();
-        return ;
     }
     if(flag==0)
     {
