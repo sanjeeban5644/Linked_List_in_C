@@ -11,7 +11,7 @@ void insert();
 void delete();
 void display();
 void reverse();
-void count();
+int count();
 void check_palin();
 void insertatfirst();
 void insertatend();
@@ -25,7 +25,7 @@ char ch;
 
 int main()
 {
-    int choice=0;
+    int choice=0,n;
     while(choice<7)
     {
         system("cls");
@@ -45,13 +45,64 @@ int main()
             case 1: insert(); break;
             case 2: delete(); break;
             case 3: display(); break;
-            //case 4: reverse(); break;
-            //case 5: count(); break;
+            case 4: reverse(); break;
+            case 5:
+            {
+                n=count();
+                printf("\nThe Total no.of Nodes in the List is : %d\n",n);
+                printf("\nPress any key to continue : ");
+                scanf(" %c",&ch);
+                break;
+            } 
             //case 6: check_palin(); break;
             default: printf("\nProgram Ended!"); printf("\nThankyou!"); break;
         }
     }
     return 0;
+}
+
+void reverse()
+{
+    if(head==NULL)
+    {
+        printf("\nThe List is empty!\n");
+        printf("\nPress any key to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    printf("\nReversing the List\n");
+    struct node *currnode=head,*prevnode=tail,*nextnode=head;
+    while(nextnode->next!=head)
+    {
+        nextnode=nextnode->next;
+        currnode->next=prevnode;
+        prevnode=currnode;
+        currnode=nextnode;
+    }
+    currnode->next=prevnode;
+    temp=head;
+    head=tail;
+    tail=temp;
+    printf("\nList Reversed successfully!\n");
+    printf("\nPress any key to continue : ");
+    scanf(" %c",&ch);
+    return ;
+}
+
+int count()
+{
+    int num=0;
+    temp=head;
+    if(temp==NULL)
+    {
+        return num=0;
+    }
+    while(temp->next!=head)
+    {
+        num++;
+        temp=temp->next;
+    }
+    return num+1;
 }
 
 void delete()
