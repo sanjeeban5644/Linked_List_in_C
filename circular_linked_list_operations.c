@@ -54,11 +54,56 @@ int main()
                 scanf(" %c",&ch);
                 break;
             } 
-            //case 6: check_palin(); break;
+            case 6: check_palin(); break;
             default: printf("\nProgram Ended!"); printf("\nThankyou!"); break;
         }
     }
     return 0;
+}
+
+void check_palin()
+{
+    if(head==NULL)
+    {
+        printf("\nThe List is empty!\n");
+        printf("\nPress any key to continue : ");
+        scanf(" %c",&ch);
+        return ;
+    }
+    struct node *temp1=head,*temp2=tail;
+    int flag=1,i,j,n,num;
+    num=count();
+    n=num/2;
+    for(i=1;i<=n;i++)
+    {
+        if(temp1->data!=temp2->data)
+        {
+            flag=0;
+            break;
+        }
+        if(i==n)
+        {
+            break;
+        }
+        temp1=temp1->next;
+        temp2=head;
+        num--;
+        for(j=1;j<num;j++)
+        {
+            temp2=temp2->next;
+        }
+    }
+    if(flag==1)
+    {
+        printf("\nThe List is Palindromic!\n");
+    }
+    else
+    {
+        printf("\nThe List is not Palindromic!\n");
+    }
+    printf("\nPress any key to continue : ");
+    scanf(" %c",&ch);
+    return ;
 }
 
 void reverse()
